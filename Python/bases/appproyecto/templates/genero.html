@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+
+{% block head %}
+
+{% endblock %}
+
+{% block nombre_nuevo %}
+Genero {% bootstrap_icon "pawn" %} 
+{% endblock %}
+
+{% block contenido_nuevo %}
+<form class="form-horizontal" action="/nuevagenero/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Nombre Genero:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="genero" placeholder="Nombre Genero">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-info btn-md">Nueva</button>
+        </div>
+    </div>
+    {% if generonueva == True %}
+        <script>
+            alert('Genero Ingresada');
+        </script>
+    {% endif %}
+    {% if generonueva == False %}
+        <script>
+            alert('No se puedo ingresar Genero');
+        </script>
+    {% endif %}
+</form>
+{% endblock %}
+
+{% block nombre_mod %} 
+Genero {% bootstrap_icon "pawn" %} 
+{% endblock %}
+
+{% block contenido_mod %}
+<form class="form-horizontal" action="/cargarmodificargenero/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if generosmod %}
+
+<form class="form-horizontal" action="/modificargenero/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Nombre Genero:</label>
+            <div class="col-sm-10">
+                <select name="generomodi">
+                    {% for genero in generosmod %}
+                        <option value="{{ genero.id_genero }}" >{{ genero.nombre_genero }}</option>
+                    {% endfor %}
+                </select> 
+            </div>
+            <br>
+            <label class="control-label col-sm-2" >Nuevo Nombre:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="genero" placeholder="Nuevo Nombre">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Modificar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if modificado == True %}
+    <script>
+        alert('Genero Modificado');
+    </script>
+{% endif %}
+{% if modificado == False %}
+    <script>
+        alert('No se puedo modificar Genero');
+    </script>
+ {% endif %}
+
+{% endblock %}
+
+{% block nombre_eliminar %}
+Genero {% bootstrap_icon "pawn" %} 
+{% endblock %}
+
+{% block contenido_eliminar %} 
+<form class="form-horizontal" action="/cargareliminargenero/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if generoseli %}
+
+<form class="form-horizontal" action="/eliminargenero/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Nombre Pais:</label>
+            <div class="col-sm-10">
+                <select name="generoeli">
+                    {% for genero in generoseli %}
+                        <option value="{{ genero.id_genero }}" >{{ genero.nombre_genero }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Eliminar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if eliminado == True %}
+    <script>
+        alert('Genero Eliminado');
+    </script>
+{% endif %}
+{% if eliminado == False %}
+    <script>
+        alert('No se puedo eliminar Genero');
+    </script>
+ {% endif %}
+
+
+{% endblock %}
+
+{% block nombre_ver %}
+Genero {% bootstrap_icon "pawn" %} 
+{% endblock %}
+
+{% block contenido_ver %}
+<form class="form-horizontal" action="/cargargenero" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-warning btn-md">Cargar</button>
+        </div>
+    </div>
+    {% if generos %}
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for genero in generos %}
+                    <tr>
+                        <td>{{ genero.id_genero }}</td>
+                        <td>{{ genero.nombre_genero }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% endif %}
+</form>
+{% endblock %}

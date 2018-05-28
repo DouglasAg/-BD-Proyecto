@@ -1,0 +1,417 @@
+{% extends "base.html" %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+
+
+{% block head %}
+
+{% endblock %}
+
+{% block nombre_nuevo %}
+Eleccion {% bootstrap_icon "edit" %} 
+{% endblock %}
+
+{% block contenido_nuevo %}
+<form class="form-horizontal" action="/cargarelecciones/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-info btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if municipios %}
+    <form class="form-horizontal" action="/nuevaelccion/" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Ubicacion:</label>
+            <div class="col-sm-10">
+                <select name="municipioid">
+                    {% for municipio in municipios %}
+                        <option value="{{ municipio.id_municipio }}" >
+                            {{ municipio.departamento_id_departamento.region_id_region.pais_id_pais.nombre_pais }}
+                             | 
+                            {{ municipio.departamento_id_departamento.region_id_region.nombre_region }}
+                             | 
+                            {{ municipio.departamento_id_departamento.nombre_departamento }}
+                             |
+                            {{ municipio.nombre_municipio }}
+                        </option>
+                    {% endfor %}
+                </select> 
+            </div>
+        </div>
+        {% if razas %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Raza:</label>
+            <div class="col-sm-10">
+                <select name="razaid">
+                    {% for raza in razas %}
+                        <option value="{{ raza.id_raza }}" >
+                            {{ raza.nombre_raza }}
+                        </option>
+                    {% endfor %}
+                </select> 
+            </div>
+        </div>
+        {% endif %}
+        {% if generos %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Genero:</label>
+            <div class="col-sm-10">
+                <select name="generoid">
+                    {% for genero in generos %}
+                        <option value="{{ genero.id_genero }}" >
+                            {{ genero.nombre_genero }}
+                        </option>
+                    {% endfor %}
+                </select> 
+            </div>
+        </div>
+        {% endif %}
+        {% if partidos %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Partido:</label>
+            <div class="col-sm-10">
+                <select name="partidoid">
+                    {% for partido in partidos %}
+                        <option value="{{ partido.id_partido }}" >
+                            {{ partido.nombre_partido }}
+                        </option>
+                    {% endfor %}
+                </select> 
+            </div>
+        </div>
+        {% endif %}
+        <div class="form-group">
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                <label class="control-label col-sm-2" >Nombre Eleccion:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="eleccionnombre" placeholder="Nombre Eleccion">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                <label class="control-label col-sm-2" >Año Eleccion:</label>
+                <div class="col-sm-10">
+                    <input type="number" value="0" class="form-control" name="anio" placeholder="Año Eleccion">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                <label class="control-label col-sm-2" >Analfavetos:</label>
+                <div class="col-sm-10">
+                    <input type="number" value="0" class="form-control" name="analfavetos" placeholder="Analfavetos">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                <label class="control-label col-sm-2" >Alfavetos:</label>
+                <div class="col-sm-10">
+                    <input type="number" value="0" class="form-control" name="alfavetos" placeholder="Alfavetos">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                <label class="control-label col-sm-2" >Primaria:</label>
+                <div class="col-sm-10">
+                    <input type="number" value="0" class="form-control" name="primaria" placeholder="Primaria">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                <label class="control-label col-sm-2" >Nivel Medio:</label>
+                <div class="col-sm-10">
+                    <input type="number" value="0" class="form-control" name="medio" placeholder="Nivel Medio">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                <label class="control-label col-sm-2" >Universitario:</label>
+                <div class="col-sm-10">
+                    <input type="number" value="0" class="form-control" name="universitario" placeholder="Universitario">
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-info btn-md">Nuevo</button>
+            </div>
+        </div>
+     
+    </form>
+{% endif %}
+{% if eleccionnueva == True %}
+<script>
+    alert('Eleccion Ingresada');
+</script>
+{% endif %}
+{% if eleccionnueva == False %}
+<script>
+    alert('No se puedo ingresar Eleccion');
+</script>
+{% endif %}
+
+{% endblock %}
+
+{% block nombre_mod %} 
+Eleccion {% bootstrap_icon "edit" %} 
+{% endblock %}
+
+{% block contenido_mod %}
+<form class="form-horizontal" action="/cargarmodificareleccion/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if eleccionesmod %}
+
+<form class="form-horizontal" action="/modificareleccion/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Ubicacion:</label>
+            <div class="col-sm-10">
+                <select name="eleccionmodi">
+                    {% for eleccion in eleccionesmod %}                    
+                        <option value="{{ eleccion.id_eleccion }}" >
+                            {{ eleccion.nombre_eleccion }} | 
+                            {{ eleccion.anio }} | 
+                            {{ eleccion.municipio_id_municipio.nombre_municipio }} | 
+                            {{ eleccion.municipio_id_municipio.departamento_id_departamento.nombre_departamento }} | 
+                            {{ eleccion.municipio_id_municipio.departamento_id_departamento.region_id_region.nombre_region }} | 
+                            {{ eleccion.municipio_id_municipio.departamento_id_departamento.region_id_region.pais_id_pais.nombre_pais }} | 
+                            {{ eleccion.partido_id_partido.iniciales_partido }} |  
+                            {{ eleccion.genero_id_genero.nombre_genero }} | 
+                            {{ eleccion.raza_id_raza.nombre_raza }}
+                        </option>
+                    {% endfor %}
+                </select> 
+            </div>
+            <br>
+            <div class="form-group">
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                    <label class="control-label col-sm-2" >Nombre Eleccion:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="eleccionnombre" placeholder="Nombre Eleccion">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                    <label class="control-label col-sm-2" >Año Eleccion:</label>
+                    <div class="col-sm-10">
+                        <input type="number" value="0" class="form-control" name="anio" placeholder="Año Eleccion">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                    <label class="control-label col-sm-2" >Analfavetos:</label>
+                    <div class="col-sm-10">
+                        <input type="number" value="0" class="form-control" name="analfavetos" placeholder="Analfavetos">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                    <label class="control-label col-sm-2" >Alfavetos:</label>
+                    <div class="col-sm-10">
+                        <input type="number" value="0" class="form-control" name="alfavetos" placeholder="Alfavetos">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                    <label class="control-label col-sm-2" >Primaria:</label>
+                    <div class="col-sm-10">
+                        <input type="number" value="0" class="form-control" name="primaria" placeholder="Primaria">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                    <label class="control-label col-sm-2" >Nivel Medio:</label>
+                    <div class="col-sm-10">
+                        <input type="number" value="0" class="form-control" name="medio" placeholder="Nivel Medio">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                    <label class="control-label col-sm-2" >Universitario:</label>
+                    <div class="col-sm-10">
+                        <input type="number" value="0" class="form-control" name="universitario" placeholder="Universitario">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Modificar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if modificado == True %}
+    <script>
+        alert('Eleccion Modificado');
+    </script>
+{% endif %}
+{% if modificado == False %}
+    <script>
+        alert('No se puedo modificar Eleccion');
+    </script>
+ {% endif %}
+
+{% endblock %}
+
+{% block nombre_eliminar %}
+Eleccion {% bootstrap_icon "edit" %} 
+{% endblock %}
+
+{% block contenido_eliminar %} 
+<form class="form-horizontal" action="/cargareliminareleccion/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if eleccioneli %}
+
+<form class="form-horizontal" action="/eliminareleccion/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Eleccion:</label>
+            <div class="col-sm-10">
+                <select name="eleccioneli">
+                    {% for eleccion in eleccioneli %}                    
+                        <option value="{{ eleccion.id_eleccion }}" >
+                            {{ eleccion.nombre_eleccion }} | 
+                            {{ eleccion.anio }} | 
+                            {{ eleccion.municipio_id_municipio.nombre_municipio }} | 
+                            {{ eleccion.municipio_id_municipio.departamento_id_departamento.nombre_departamento }} | 
+                            {{ eleccion.municipio_id_municipio.departamento_id_departamento.region_id_region.nombre_region }} | 
+                            {{ eleccion.municipio_id_municipio.departamento_id_departamento.region_id_region.pais_id_pais.nombre_pais }} | 
+                            {{ eleccion.partido_id_partido.iniciales_partido }} |  
+                            {{ eleccion.genero_id_genero.nombre_genero }} | 
+                            {{ eleccion.raza_id_raza.nombre_raza }}
+                        </option>
+                    {% endfor %}
+                </select> 
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Eliminar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if eliminado == True %}
+    <script>
+        alert('Eleccion Eliminado');
+    </script>
+{% endif %}
+{% if eliminado == False %}
+    <script>
+        alert('No se puedo eliminar Eleccion');
+    </script>
+ {% endif %}
+
+
+{% endblock %}
+
+{% block nombre_ver %}
+Eleccion {% bootstrap_icon "edit" %} 
+{% endblock %}
+
+{% block contenido_ver %}
+<form class="form-horizontal" action="/cargareleccionver" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-warning btn-md">Cargar</button>
+        </div>
+    </div>
+    {% if elecciones %}
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nombre</th>
+                    <th>Año</th>
+                    <th>Analfa</th>
+                    <th>Alfav</th>
+                    <th>Prima</th>
+                    <th>Nivel Medi</th>
+                    <th>Univer</th>
+                    <th>Nombre Municipio</th>
+                    <th>Nombre Departamento</th>
+                    <th>Nombre Region</th>
+                    <th>Nombre Pais</th>
+                    <th>Siglas </th>
+                    <th>Partido</th>
+                    <th>Genero</th>
+                    <th>Raza</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for eleccion in elecciones %}
+                    <tr>
+                        <td>{{ eleccion.id_eleccion }}</td>
+                        <td>{{ eleccion.nombre_eleccion }}</td>
+                        <td>{{ eleccion.anio }}</td>
+                        <td>{{ eleccion.analfavetos }}</td>
+                        <td>{{ eleccion.alfavetos }}</td>
+                        <td>{{ eleccion.primaria }}</td>
+                        <td>{{ eleccion.medio }}</td>
+                        <td>{{ eleccion.universitario }}</td>
+                        <td>{{ eleccion.municipio_id_municipio.nombre_municipio }}</td>
+                        <td>{{ eleccion.municipio_id_municipio.departamento_id_departamento.nombre_departamento }}</td>
+                        <td>{{ eleccion.municipio_id_municipio.departamento_id_departamento.region_id_region.nombre_region }}</td>
+                        <td>{{ eleccion.municipio_id_municipio.departamento_id_departamento.region_id_region.pais_id_pais.nombre_pais }}</td>
+                        <td>{{ eleccion.partido_id_partido.iniciales_partido }}</td>
+                        <td>{{ eleccion.partido_id_partido.nombre_partido }}</td>
+                        <td>{{ eleccion.genero_id_genero.nombre_genero }}</td>
+                        <td>{{ eleccion.raza_id_raza.nombre_raza }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% endif %}
+</form>
+{% endblock %}
+
+

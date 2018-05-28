@@ -1,0 +1,7 @@
+source bin/activate
+deactivate
+
+
+python3 -m virtualenv virtualproyecto
+
+python manage.py runserver

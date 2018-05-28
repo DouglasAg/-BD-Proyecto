@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+
+{% block head %}
+
+{% endblock %}
+
+{% block nombre_nuevo %}
+Pais {% bootstrap_icon "flag" %} 
+{% endblock %}
+
+{% block contenido_nuevo %}
+<form class="form-horizontal" action="/nuevopais/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Nombre Pais:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="pais" placeholder="Nombre Pais">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-info btn-md">Nuevo</button>
+        </div>
+    </div>
+    {% if paisnuevo == True %}
+        <script>
+            alert('Pais Ingresado');
+        </script>
+    {% endif %}
+    {% if paisnuevo == False %}
+        <script>
+            alert('No se puedo ingresar Pais');
+        </script>
+    {% endif %}
+</form>
+{% endblock %}
+
+{% block nombre_mod %} 
+Pais {% bootstrap_icon "flag" %} 
+{% endblock %}
+
+{% block contenido_mod %}
+<form class="form-horizontal" action="/cargarmodificarpais/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if paicesmod %}
+
+<form class="form-horizontal" action="/modificarpais/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" for="email">Nombre Pais:</label>
+            <div class="col-sm-10">
+                <select name="paismod">
+                    {% for pais in paicesmod %}
+                        <option value="{{ pais.id_pais }}" >{{ pais.nombre_pais }}</option>
+                    {% endfor %}
+                </select> 
+            </div>
+            <br>
+            <label class="control-label col-sm-2" for="email">Nuevo Nombre:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="pais" placeholder="Nuevo Nombre">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Modificar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if modificado == True %}
+    <script>
+        alert('Pais Modificado');
+    </script>
+{% endif %}
+{% if modificado == False %}
+    <script>
+        alert('No se puedo modificar Pais');
+    </script>
+ {% endif %}
+
+{% endblock %}
+
+{% block nombre_eliminar %}
+Pais {% bootstrap_icon "flag" %} 
+{% endblock %}
+
+{% block contenido_eliminar %} 
+<form class="form-horizontal" action="/cargareliminarpais/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if paiceselim %}
+
+<form class="form-horizontal" action="/eliminarpais/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" for="email">Nombre Pais:</label>
+            <div class="col-sm-10">
+                <select name="paiselim">
+                    {% for pais in paiceselim %}
+                        <option value="{{ pais.id_pais }}" >{{ pais.nombre_pais }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Eliminar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if eliminado == True %}
+    <script>
+        alert('Pais Eliminado');
+    </script>
+{% endif %}
+{% if eliminado == False %}
+    <script>
+        alert('No se puedo eliminar Pais');
+    </script>
+ {% endif %}
+
+
+{% endblock %}
+
+{% block nombre_ver %}
+Pais {% bootstrap_icon "flag" %} 
+{% endblock %}
+
+{% block contenido_ver %}
+<form class="form-horizontal" action="/cargarpais/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-warning btn-md">Cargar</button>
+        </div>
+    </div>
+    {% if paices %}
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pais in paices %}
+                    <tr>
+                        <td>{{ pais.id_pais }}</td>
+                        <td>{{ pais.nombre_pais }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% endif %}
+</form>
+{% endblock %}

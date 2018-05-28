@@ -1,0 +1,250 @@
+{% extends "base.html" %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+
+{% block head %}
+
+{% endblock %}
+
+{% block nombre_nuevo %}
+Munucipio {% bootstrap_icon "tent" %} 
+{% endblock %}
+
+{% block contenido_nuevo %}
+<form class="form-horizontal" action="/cargarmunicipios/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-info btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if departamentos %}
+    <form class="form-horizontal" action="/nuevomunicipio/" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Ubicacion:</label>
+            <div class="col-sm-10">
+                <select name="departamentoid">
+                    {% for departamento in departamentos %}
+                        <option value="{{ departamento.id_departamento }}" >
+                            {{ departamento.region_id_region.pais_id_pais.nombre_pais }}
+                             | 
+                             {{ departamento.region_id_region.nombre_region }}
+                             | 
+                            {{ departamento.nombre_departamento }}
+                        </option>
+                    {% endfor %}
+                </select> 
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                <label class="control-label col-sm-2" >Nombre Municipio:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="municipio" placeholder="Nombre Municipio">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-info btn-md">Nuevo</button>
+            </div>
+        </div>
+     
+    </form>
+{% endif %}
+{% if municipionueva == True %}
+<script>
+    alert('Municipio Ingresada');
+</script>
+{% endif %}
+{% if municipionueva == False %}
+<script>
+    alert('No se puedo ingresar Municipio');
+</script>
+{% endif %}
+
+{% endblock %}
+
+{% block nombre_mod %} 
+Munucipio {% bootstrap_icon "tent" %} 
+{% endblock %}
+
+{% block contenido_mod %}
+<form class="form-horizontal" action="/cargarmodificarmunicipio/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if municipiosmod %}
+
+<form class="form-horizontal" action="/modificarmunicipio/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Ubicacion:</label>
+            <div class="col-sm-10">
+                <select name="municipiomodi">
+                    {% for municipio in municipiosmod %}                    
+                        <option value="{{ municipio.id_municipio }}" >
+                            {{ municipio.departamento_id_departamento.region_id_region.pais_id_pais.nombre_pais }}
+                             | 
+                            {{ municipio.departamento_id_departamento.region_id_region.nombre_region }}
+                             | 
+                            {{ municipio.departamento_id_departamento.nombre_departamento }}
+                             | 
+                            {{ municipio.nombre_municipio }}
+                        </option>
+                    {% endfor %}
+                </select> 
+            </div>
+            <br>
+            <label class="control-label col-sm-2" >Nuevo Nombre:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="municipio" placeholder="Nombre Municipio">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Modificar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if modificado == True %}
+    <script>
+        alert('Municipio Modificado');
+    </script>
+{% endif %}
+{% if modificado == False %}
+    <script>
+        alert('No se puedo modificar Municipio');
+    </script>
+ {% endif %}
+
+{% endblock %}
+
+{% block nombre_eliminar %}
+Munucipio {% bootstrap_icon "tent" %} 
+{% endblock %}
+
+{% block contenido_eliminar %} 
+<form class="form-horizontal" action="/cargareliminarmunicipio/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if municipioeli %}
+
+<form class="form-horizontal" action="/eliminarmunicipio/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Ubicacion:</label>
+            <div class="col-sm-10">
+                <select name="municipioeli">
+                        {% for municipio in municipioeli %}                    
+                            <option value="{{ municipio.id_municipio }}" >
+                                {{ municipio.departamento_id_departamento.region_id_region.pais_id_pais.nombre_pais }}
+                                    | 
+                                {{ municipio.departamento_id_departamento.region_id_region.nombre_region }}
+                                    | 
+                                {{ municipio.departamento_id_departamento.nombre_departamento }}
+                                    | 
+                                {{ municipio.nombre_municipio }}
+                            </option>
+                        {% endfor %}
+                    </select> 
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Eliminar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if eliminado == True %}
+    <script>
+        alert('Municipio Eliminado');
+    </script>
+{% endif %}
+{% if eliminado == False %}
+    <script>
+        alert('No se puedo eliminar Municipio');
+    </script>
+ {% endif %}
+
+
+{% endblock %}
+
+{% block nombre_ver %}
+Munucipio {% bootstrap_icon "tent" %} 
+{% endblock %}
+
+{% block contenido_ver %}
+<form class="form-horizontal" action="/cargarmunicipiover" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-warning btn-md">Cargar</button>
+        </div>
+    </div>
+    {% if municipios %}
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nombre</th>
+                    <th>Id Departamento</th>
+                    <th>Nombre Departamento</th>
+                    <th>Id Region</th>
+                    <th>Nombre Region</th>
+                    <th>Id Pais</th>
+                    <th>Nombre Pais</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for municipio in municipios %}
+                    <tr>
+                        <td>{{ municipio.id_municipio }}</td>
+                        <td>{{ municipio.nombre_municipio }}</td>
+                        <td>{{ municipio.departamento_id_departamento.id_departamento }}</td>
+                        <td>{{ municipio.departamento_id_departamento.nombre_departamento }}</td>
+                        <td>{{ municipio.departamento_id_departamento.region_id_region.id_region }}</td>
+                        <td>{{ municipio.departamento_id_departamento.region_id_region.nombre_region }}</td>
+                        <td>{{ municipio.departamento_id_departamento.region_id_region.pais_id_pais.id_pais }}</td>
+                        <td>{{ municipio.departamento_id_departamento.region_id_region.pais_id_pais.nombre_pais }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% endif %}
+</form>
+{% endblock %}

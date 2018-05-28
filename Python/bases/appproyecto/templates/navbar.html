@@ -1,0 +1,90 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Proyecto 201503935</a>
+    </div>
+    <ul class="nav navbar-nav">
+            <li class="nav-item active">
+                <form class="form-horizontal" action="/irpais/" method="POST">
+                    {% csrf_token %}                
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                           <button type="submit" class="btn btn-link">Pais</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form class="form-horizontal" action="/irregion/" method="POST">
+                    {% csrf_token %}    
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-link">Region</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form class="form-horizontal" action="/irdepartamento/" method="POST">
+                    {% csrf_token %}    
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-link">Departemento</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form class="form-horizontal" action="/irmunicipio/" method="POST">
+                    {% csrf_token %}    
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-link">Municipio</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form class="form-horizontal" action="/irraza/" method="POST">
+                    {% csrf_token %}                  
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-link">Raza</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form class="form-horizontal" action="/irgenero/" method="POST">
+                    {% csrf_token %}                  
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-link">Genero</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form class="form-horizontal" action="/irpartido/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-link">Partido</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li class="nav-item active">
+                <form class="form-horizontal" action="/ireleccion/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-link">Eleccion</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+          </ul>
+    </ul>
+  </div>
+</nav>

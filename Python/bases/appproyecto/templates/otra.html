@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <title>Prueba de Bootstrap</title> 
+
+    {# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+{% bootstrap_messages %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head> 
+<body>
+  <div class="container">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+       Tutorial de Bootstrap
+      </div> 
+      <div class="panel-body">
+       <a href="http://www.cssya.com.ar/bootstrapya">El tutorial consta de más de 40 conceptos.</a>
+      </div>
+      <div class="panel-footer">
+       Bootstrap
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="panel panel-success">
+      <div class="panel-heading">
+       Tutorial de Bootstrap
+      </div> 
+      <div class="panel-body">
+       <a href="http://www.cssya.com.ar/bootstrapya">El tutorial consta de más de 40 conceptos.</a>
+      </div>
+      <div class="panel-footer">
+       Bootstrap
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+       Tutorial de Bootstrap
+      </div> 
+      <div class="panel-body">
+       <a href="http://www.cssya.com.ar/bootstrapya">El tutorial consta de más de 40 conceptos.</a>
+      </div>
+      <div class="panel-footer">
+       Bootstrap
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+       Tutorial de Bootstrap
+      </div> 
+      <div class="panel-body">
+       <a href="http://www.cssya.com.ar/bootstrapya">El tutorial consta de más de 40 conceptos.</a>
+      </div>
+      <div class="panel-footer">
+       Bootstrap
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+       Tutorial de Bootstrap
+      </div> 
+      <div class="panel-body">
+       <a href="http://www.cssya.com.ar/bootstrapya">El tutorial consta de más de 40 conceptos.</a>
+      </div>
+      <div class="panel-footer">
+       Bootstrap
+      </div>
+    </div>
+
+  </div> 
+
+  <form action="/url/to/submit/" method="post" class="form">
+    {% csrf_token %}
+    
+    {% buttons %}
+      <button type="submit" class="btn btn-primary">
+        {% bootstrap_icon "star" %} Submit
+      </button>
+    {% endbuttons %}
+  </form>
+</body> 
+</html>

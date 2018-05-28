@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+
+{% block head %}
+
+{% endblock %}
+
+{% block nombre_nuevo %}
+Region {% bootstrap_icon "grain" %} 
+{% endblock %}
+
+{% block contenido_nuevo %}
+<form class="form-horizontal" action="/cargarpaicesregion/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-info btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if paices %}
+    <form class="form-horizontal" action="/nuevaregion/" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Nombre Pais:</label>
+            <div class="col-sm-10">
+                <select name="paisid">
+                    {% for pais in paices %}
+                        <option value="{{ pais.id_pais }}" >{{ pais.nombre_pais }}</option>
+                    {% endfor %}
+                </select> 
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                <label class="control-label col-sm-2" >Nombre Region:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="region" placeholder="Nombre Region">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-info btn-md">Nueva</button>
+            </div>
+        </div>
+     
+    </form>
+{% endif %}
+{% if regionnueva == True %}
+<script>
+    alert('Region Ingresada');
+</script>
+{% endif %}
+{% if regionnueva == False %}
+<script>
+    alert('No se puedo ingresar Region');
+</script>
+{% endif %}
+
+{% endblock %}
+
+{% block nombre_mod %} 
+Region {% bootstrap_icon "grain" %} 
+{% endblock %}
+
+{% block contenido_mod %}
+<form class="form-horizontal" action="/cargarmodificarregion/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if regionesmod %}
+
+<form class="form-horizontal" action="/modificaregion/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Nombre Region:</label>
+            <div class="col-sm-10">
+                <select name="regionmodi">
+                    {% for region in regionesmod %}
+                        <option value="{{ region.id_region }}" >
+                            {{ region.pais_id_pais.nombre_pais }}
+                             | 
+                             {{ region.nombre_region }}</option>
+                    {% endfor %}
+                </select> 
+            </div>
+            <br>
+            <label class="control-label col-sm-2" >Nuevo Nombre:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="region" placeholder="Nombre Region">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Modificar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if modificado == True %}
+    <script>
+        alert('Region Modificado');
+    </script>
+{% endif %}
+{% if modificado == False %}
+    <script>
+        alert('No se puedo modificar Region');
+    </script>
+ {% endif %}
+
+{% endblock %}
+
+{% block nombre_eliminar %}
+Region {% bootstrap_icon "grain" %} 
+{% endblock %}
+
+{% block contenido_eliminar %} 
+<form class="form-horizontal" action="/cargareliminaregion/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if regioneli %}
+
+<form class="form-horizontal" action="/eliminarregion/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Ubicacion:</label>
+            <div class="col-sm-10">
+                <select name="regioneli">
+                    {% for region in regioneli %}
+                    <option value="{{ region.id_region }}" >{{ region.pais_id_pais.nombre_pais }} | {{ region.nombre_region }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Eliminar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if eliminado == True %}
+    <script>
+        alert('Region Eliminado');
+    </script>
+{% endif %}
+{% if eliminado == False %}
+    <script>
+        alert('No se puedo eliminar Region');
+    </script>
+ {% endif %}
+
+
+{% endblock %}
+
+{% block nombre_ver %}
+Region {% bootstrap_icon "grain" %} 
+{% endblock %}
+
+{% block contenido_ver %}
+<form class="form-horizontal" action="/cargarregion" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-warning btn-md">Cargar</button>
+        </div>
+    </div>
+    {% if regiones %}
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nombre</th>
+                    <th>Id Pais</th>
+                    <th>Nombre Pais</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for region in regiones %}
+                    <tr>
+                        <td>{{ region.id_region }}</td>
+                        <td>{{ region.nombre_region }}</td>
+                        <td>{{ region.pais_id_pais.id_pais }}</td>
+                        <td>{{ region.pais_id_pais.nombre_pais }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% endif %}
+</form>
+{% endblock %}

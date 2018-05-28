@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+
+{% block head %}
+
+{% endblock %}
+
+{% block nombre_nuevo %}
+Partido {% bootstrap_icon "user" %} 
+{% endblock %}
+
+{% block contenido_nuevo %}
+<form class="form-horizontal" action="/nuevopartido/" method="POST">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26">
+            <label class="control-label col-sm-2">Siglas partido:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="siglas" placeholder="Siglas Partido">
+            </div>
+            <label class="control-label col-sm-2">Nombre Partido:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="partido" placeholder="Nombre Partido">
+            </div>
+            
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-info btn-md">Nuevo</button>
+        </div>
+    </div>
+    {% if nuevopar == True %}
+        <script>
+            alert('Partido Ingresado');
+        </script>
+    {% endif %}
+    {% if nuevopar == False %}
+        <script>
+            alert('No se puedo ingresar partido');
+        </script>
+    {% endif %}
+</form>
+{% endblock %}
+
+{% block nombre_mod %} 
+Partido {% bootstrap_icon "user" %} 
+{% endblock %}
+
+{% block contenido_mod %}
+<form class="form-horizontal" action="/cargarmodificarpartido/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if partidosmod %}
+
+<form class="form-horizontal" action="/modificarpartido/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Nombre Pais:</label>
+            <div class="col-sm-10">
+                <select name="partidomod">
+                    {% for partido in partidosmod %}
+                        <option value="{{ partido.id_partido }}" >{{ partido.iniciales_partido }} {{ partido.nombre_partido }}</option>
+                    {% endfor %}
+                </select> 
+            </div>
+            <br>
+            <label class="control-label col-sm-2" >Nuevas Siglas:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="siglas" placeholder="Nuevas Siglas">
+            </div>
+            <label class="control-label col-sm-2" >Nuevo Nombre:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="partido" placeholder="Nuevo Nombre">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Modificar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if modificado == True %}
+    <script>
+        alert('Partido Modificado');
+    </script>
+{% endif %}
+{% if modificado == False %}
+    <script>
+        alert('No se puedo modificar Partido');
+    </script>
+ {% endif %}
+
+{% endblock %}
+
+{% block nombre_eliminar %}
+Partido {% bootstrap_icon "user" %} 
+{% endblock %}
+
+{% block contenido_eliminar %} 
+<form class="form-horizontal" action="/cargareliminarpartido/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if partidoelim %}
+
+<form class="form-horizontal" action="/eliminarpartido/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Nombre Pais:</label>
+            <div class="col-sm-10">
+                <select name="partidoelim">
+                        {% for partido in partidoelim %}
+                        <option value="{{ partido.id_partido }}" >{{ partido.iniciales_partido }} {{ partido.nombre_partido }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Eliminar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if eliminado == True %}
+    <script>
+        alert('Partido Eliminado');
+    </script>
+{% endif %}
+{% if eliminado == False %}
+    <script>
+        alert('No se puedo eliminar Partido');
+    </script>
+ {% endif %}
+
+
+{% endblock %}
+
+{% block nombre_ver %}
+Partido {% bootstrap_icon "user" %} 
+{% endblock %}
+
+{% block contenido_ver %}
+<form class="form-horizontal" action="/cargarpartidos/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-warning btn-md">Cargar</button>
+        </div>
+    </div>
+    {% if partidos %}
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Siglas</th>
+                    <th>NOmbre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for partido in partidos %}
+                    <tr>
+                        <td>{{ partido.id_partido }}</td>
+                        <td>{{ partido.iniciales_partido }}</td>
+                        <td>{{ partido.nombre_partido }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% endif %}
+</form>
+{% endblock %}

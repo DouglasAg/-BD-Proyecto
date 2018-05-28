@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% bootstrap_messages %}
+
+
+{% block head %}
+
+{% endblock %}
+
+{% block nombre_nuevo %}
+Departamento {% bootstrap_icon "tree-conifer" %} 
+{% endblock %}
+
+{% block contenido_nuevo %}
+<form class="form-horizontal" action="/cargardepartamentos/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-info btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if regiones %}
+    <form class="form-horizontal" action="/nuevodepartamento/" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="control-label col-sm-2" >Ubicacion:</label>
+            <div class="col-sm-10">
+                <select name="regionid">
+                    {% for region in regiones %}
+                        <option value="{{ region.id_region }}" >
+                            {{ region.pais_id_pais.nombre_pais }}
+                             | 
+                            {{ region.nombre_region }}</option>
+                    {% endfor %}
+                </select> 
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+                <label class="control-label col-sm-2" >Nombre Departamento:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="departamento" placeholder="Nombre Departamento">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-info btn-md">Nuevo</button>
+            </div>
+        </div>
+     
+    </form>
+{% endif %}
+{% if departamentonueva == True %}
+<script>
+    alert('Departamento Ingresada');
+</script>
+{% endif %}
+{% if departamentonueva == False %}
+<script>
+    alert('No se puedo ingresar Departamento');
+</script>
+{% endif %}
+
+{% endblock %}
+
+{% block nombre_mod %} 
+Departamento {% bootstrap_icon "tree-conifer" %} 
+{% endblock %}
+
+{% block contenido_mod %}
+<form class="form-horizontal" action="/cargarmodificardepartamento/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if departamentosmod %}
+
+<form class="form-horizontal" action="/modificardepartamento/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Ubicacion:</label>
+            <div class="col-sm-10">
+                <select name="departamentomodi">
+                    {% for departamento in departamentosmod %}
+                   
+                        <option value="{{ departamento.id_departamento }}" >
+                            {{ departamento.region_id_region.pais_id_pais.nombre_pais}}
+                             | 
+                            {{ departamento.region_id_region.nombre_region }}
+                             | 
+                             {{ departamento.nombre_departamento }}
+                        </option>
+                    {% endfor %}
+                </select> 
+            </div>
+            <br>
+            <label class="control-label col-sm-2" >Nuevo Nombre:</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="departamento" placeholder="Nombre Departamento">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success btn-md">Modificar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if modificado == True %}
+    <script>
+        alert('Departamento Modificado');
+    </script>
+{% endif %}
+{% if modificado == False %}
+    <script>
+        alert('No se puedo modificar Departamento');
+    </script>
+ {% endif %}
+
+{% endblock %}
+
+{% block nombre_eliminar %}
+Departamento {% bootstrap_icon "tree-conifer" %} 
+{% endblock %}
+
+{% block contenido_eliminar %} 
+<form class="form-horizontal" action="/cargareliminardepartamento/" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Cargar</button>
+        </div>
+    </div>
+</form>
+{% if departamentoeli %}
+
+<form class="form-horizontal" action="/eliminardepartamento/" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <div class="wrap-input100 validate-input m-b-26" data-validate="Nombre Requerido">
+            <label class="control-label col-sm-2" >Ubicacion:</label>
+            <div class="col-sm-10">
+                <select name="departamentoeli">
+                    {% for departamento in departamentoeli %}
+                        <td>{{ departamento.id_departamento }}</td>
+                            <option value="{{ departamento.id_departamento }}" >
+                                {{ departamento.region_id_region.pais_id_pais.nombre_pais}}
+                                 | 
+                                {{ departamento.region_id_region.nombre_region }}
+                                 | 
+                                 {{ departamento.nombre_departamento }}
+                            </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-danger btn-md">Eliminar</button>
+        </div>
+    </div>
+    
+</form>
+
+{% endif %}
+
+{% if eliminado == True %}
+    <script>
+        alert('Departamento Eliminado');
+    </script>
+{% endif %}
+{% if eliminado == False %}
+    <script>
+        alert('No se puedo eliminar Departamento');
+    </script>
+ {% endif %}
+
+
+{% endblock %}
+
+{% block nombre_ver %}
+Departamento {% bootstrap_icon "tree-conifer" %} 
+{% endblock %}
+
+{% block contenido_ver %}
+<form class="form-horizontal" action="/cargardepartamentosver" method="POST">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-warning btn-md">Cargar</button>
+        </div>
+    </div>
+    {% if departamentos %}
+    
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nombre</th>
+                    <th>Id Region</th>
+                    <th>Nombre Region</th>
+                    <th>Id Pais</th>
+                    <th>Nombre Pais</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for departamento in departamentos %}
+                    <tr>
+                        <td>{{ departamento.id_departamento }}</td>
+                        <td>{{ departamento.nombre_departamento }}</td>
+                        <td>{{ departamento.region_id_region.id_region }}</td>
+                        <td>{{ departamento.region_id_region.nombre_region }}</td>
+                        <td>{{ departamento.region_id_region.pais_id_pais.id_pais }}</td>
+                        <td>{{ departamento.region_id_region.pais_id_pais.nombre_pais }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% endif %}
+</form>
+{% endblock %}

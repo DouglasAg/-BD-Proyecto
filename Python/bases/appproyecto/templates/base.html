@@ -1,0 +1,85 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {# Load the tag library #}
+        {% load bootstrap3 %}
+        {# Load CSS and JavaScript #}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        {% bootstrap_messages %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Proyecto</title>
+        <meta name="description" content="{% block description %}{% endblock %}"/>
+
+        
+       
+        <!--<link href="{% static 'prueba.css' %}" rel="stylesheet">-->
+        {% block head %}
+
+        {% endblock %}
+    </head>
+
+    <body>
+        {% include "navbar.html" %}
+        
+        <br>
+        <div class="container">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                Nuevo  {% block nombre_nuevo %}{% endblock %}
+                </div> 
+                <div class="panel-body">
+                {% block contenido_nuevo %} {% endblock %}
+                </div>
+            </div>
+            <hr>
+        </div> 
+
+        <div class="container">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                Modificar  {% block nombre_mod %}{% endblock %}
+                </div> 
+                <div class="panel-body">
+                {% block contenido_mod %} {% endblock %}
+                </div>
+            </div>
+            <hr>
+        </div> 
+
+        <div class="container">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                Eliminar  {% block nombre_eliminar %}{% endblock %}
+                </div> 
+                <div class="panel-body">
+                {% block contenido_eliminar %} {% endblock %}
+                </div>
+            </div>
+            <hr>
+        </div> 
+
+        <div class="container">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                Contenido  {% block nombre_ver %}{% endblock %}
+                </div> 
+                <div class="panel-body">
+                {% block contenido_ver %} {% endblock %}
+                </div>
+            </div>
+            <hr>
+        </div> 
+        
+
+        {% block scripts %}
+        {% endblock %}
+       
+	    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    </body>
+</html>

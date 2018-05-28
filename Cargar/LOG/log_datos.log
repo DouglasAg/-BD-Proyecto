@@ -1,0 +1,83 @@
+
+SQL*Loader: Release 12.2.0.1.0 - Production on Sat Apr 28 14:42:01 2018
+
+Copyright (c) 1982, 2017, Oracle and/or its affiliates.  All rights reserved.
+
+Control File:   Cargar/Control/ctl_datos.ctl
+Character Set UTF8 specified for all input.
+
+Data File:      Cargar/Datos/ICE-Fuente.csv
+  Bad File:     Cargar/BAD/bad_datos.bad
+  Discard File: Cargar/DISCARD/dis_datos.dsc 
+ (Allow all discards)
+
+Number to load: ALL
+Number to skip: 1
+Errors allowed: 50
+Bind array:     64 rows, maximum of 256000 bytes
+Continuation:    none specified
+Path used:      Conventional
+
+Table TEMPORAL, loaded from every logical record.
+Insert option in effect for this table: INSERT
+TRAILING NULLCOLS option in effect
+
+   Column Name                  Position   Len  Term Encl Datatype
+------------------------------ ---------- ----- ---- ---- ---------------------
+NOM_ELEC                            FIRST     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:nom_elec)"
+ANIO                                 NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:anio)"
+PAIS                                 NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:pais)"
+REGION                               NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:region)"
+DEPTO                                NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:depto)"
+MUN                                  NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:mun)"
+PAR                                  NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:par)"
+NOMPAR                               NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:nompar)"
+SEXO                                 NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:sexo)"
+RAZA                                 NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:raza)"
+ANALFAVETOS                          NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:analfavetos)"
+ALFAVETOS                            NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:alfavetos)"
+SEXO2                                NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:sexo2)"
+RAZA2                                NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:raza2)"
+PRIMARIA                             NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:primaria)"
+MEDIO                                NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:medio)"
+UNIVESITARIOS                        NEXT     *   ,       CHARACTER            
+    SQL string for column : "TRIM(:univesitarios)"
+
+value used for ROWS parameter changed from 64 to 58
+
+Table TEMPORAL:
+  20970 Rows successfully loaded.
+  0 Rows not loaded due to data errors.
+  0 Rows not loaded because all WHEN clauses were failed.
+  0 Rows not loaded because all fields were null.
+
+
+Space allocated for bind array:                 254388 bytes(58 rows)
+Read   buffer bytes: 1048576
+
+Total logical records skipped:          1
+Total logical records read:         20970
+Total logical records rejected:         0
+Total logical records discarded:        0
+
+Run began on Sat Apr 28 14:42:01 2018
+Run ended on Sat Apr 28 14:42:24 2018
+
+Elapsed time was:     00:00:22.95
+CPU time was:         00:00:00.54
